@@ -1,8 +1,8 @@
 import { useState } from "react";
 import FilterBar from "../components/common/FilterBar";
-import PatientList from "../components/patients/PatientList";
+import PrescriptionList from "../components/prescriptions/PrescriptionList";
 
-export default function PatientsPage() {
+export default function PrescriptionsPage() {
     const [filters, setFilters] = useState({
         keyword: "",
         fromDate: null,
@@ -16,17 +16,15 @@ export default function PatientsPage() {
                 extraButtons={
                     <div className="flex gap-2 items-center">
                         <button className="bg-green-700 text-white text-sm px-3 py-0.5 rounded-full whitespace-nowrap">
-                            + Thêm bệnh nhân
+                            + Thêm đơn thuốc
                         </button>
-
                         <button className="bg-blue-600 text-white text-sm px-3 py-0.5 rounded-full whitespace-nowrap">
                             ⬇ Xuất file excel
                         </button>
                     </div>
                 }
             />
-
-            <PatientList filters={filters} />
+            <PrescriptionList filters={filters} />
         </div>
     );
 }
