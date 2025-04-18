@@ -25,7 +25,7 @@ export default function PatientsPage() {
                     </div>
                 }
             />
-
+        
             <PatientList filters={filters} />
         </div>
     );
