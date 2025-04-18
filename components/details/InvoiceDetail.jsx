@@ -1,35 +1,32 @@
 export default function InvoiceDetail({ data }) {
-    if (!data) return <p>Không có dữ liệu hóa đơn.</p>;
+    if (!data || !Array.isArray(data.items)) {
+        return <p className="text-sm italic text-gray-500">Không có dữ liệu hóa đơn.</p>;
+    }
+
     return (
-        <div className="bg-white border p-4 shadow rounded text-sm">
-            <h2 className="text-lg font-semibold mb-2">🧾 Thông tin hóa đơn</h2>
-            <table className="w-full border text-center text-xs">
-                <thead className="bg-gray-100">
-                    <tr>
-                        <th>#</th>
-                        <th>Tên thuốc</th>
-                        <th>Đơn vị</th>
-                        <th>Số lượng</th>
-                        <th>Giá bán</th>
-                        <th>Tổng cộng</th>
+        <table className="w-full text-sm border">
+            <thead className="bg-gray-100">
+                <tr>
+                    <th className="border px-2 py-1">#</th>
+                    <th className="border px-2 py-1">Tên thuốc</th>
+                    <th className="border px-2 py-1">Đơn vị</th>
+                    <th className="border px-2 py-1">SL</th>
+                    <th className="border px-2 py-1">Giá</th>
+                    <th className="border px-2 py-1">Cộng</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.items.map((item, i) => (
+                    <tr key={i}>
+                        <td className="border px-2 py-1 text-center">{i + 1}</td>
+                        <td className="border px-2 py-1">{item.name}</td>
+                        <td className="border px-2 py-1">{item.unit}</td>
+                        <td className="border px-2 py-1 text-center">{item.quantity}</td>
+                        <td className="border px-2 py-1 text-right">{item.price.toLocaleString()} ₫</td>
+                        <td className="border px-2 py-1 text-right">{item.total.toLocaleString()} ₫</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {data.items.map((item, i) => (
-                        <tr key={i} className="border-t">
-                            <td>{i + 1}</td>
-                            <td>{item.name}</td>
-                            <td>{item.unit}</td>
-                            <td>{item.quantity}</td>
-                            <td>{item.price}</td>
-                            <td>{item.total}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="mt-2 text-right font-medium">
-                Tổng cộng: {data.total} VND
-            </div>
-        </div>
+                ))}
+            </tbody>
+        </table>
     );
 }

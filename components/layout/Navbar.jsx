@@ -9,8 +9,9 @@ export default function Navbar() {
                     <h1 className="text-xl sm:text-2xl font-bold">DeBruyne.vn</h1>
                     <div className="flex flex-wrap gap-x-4 text-sm sm:text-base">
                         <Link to="/patients">BỆNH NHÂN</Link>
-                        <Link to="/prescriptions">ĐƠN THUỐC</Link>
+                        <Link to="/prescriptions">PHIẾU KHÁM BỆNH</Link>
                         <Link to="/invoices">HÓA ĐƠN</Link>
+                        <Link to="/drugs">THUỐC</Link>
                         <Link to="/stock">NHẬP KHO</Link>
                         <Link to="/reports">BÁO CÁO</Link>
                     </div>

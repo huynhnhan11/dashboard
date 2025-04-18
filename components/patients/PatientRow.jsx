@@ -1,7 +1,7 @@
 export default function PatientRow({ data, isSelected, onClick }) {
     return (
-        <tr onClick={onClick} className={`text-center hover:bg-gray-50 border-t border-gray-300 ${isSelected ? "bg-gray-100" : ""}`}>
-            <td className="border border-gray-300">
+        <tr className={`text-center hover:bg-gray-50 border-t border-gray-300 ${isSelected ? "bg-gray-100" : ""}`}>
+            <td onClick={onClick} className="border border-gray-300">
                 <span className="text-xl">{isSelected ? "▼" : "▶"}</span>
             </td>
             <td className="text-blue-700 font-semibold border border-gray-300">{data.id}</td>
