@@ -10,11 +10,11 @@ export default function PatientDetail({ data }) {
                 <div><strong>Tuổi/Năm sinh:</strong> {data.age}</div>
                 <div><strong>Điện thoại:</strong> {data.phone}</div>
                 <div><strong>Địa chỉ:</strong> {data.address}</div>
-                <div><strong>Nghề nghiệp:</strong> {data.job}</div>
-                <div><strong>Tiền sử:</strong> {data.history}</div>
+                <div><strong>Nghề nghiệp:</strong> {data.occupation}</div>
+                <div><strong>Tiền sử:</strong> {data.medicalHistory}</div>
             </div>
             <div className="mt-2 text-sm">
-                <strong>Sinh hiệu:</strong> {data.vitals}
+                <strong>Sinh hiệu:</strong> Mạch: {data.pulse}, Thân nhiệt: {data.temperature}°C, Huyết áp: {data.bloodPressure}, Cân nặng: {data.weight}
             </div>
         </div>
     );

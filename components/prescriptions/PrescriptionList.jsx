@@ -1,4 +1,3 @@
-// ✅ PrescriptionList.jsx với filter + bảng + PrescriptionTabs
 import { Fragment, useState } from "react";
 import PrescriptionTabs from "../tabDetail/PrescriptionTabs";
 import PrescriptionRow from "./PrescriptionRow";
@@ -19,11 +18,24 @@ const prescriptions = [
         createdBy: "BS. Minh",
         createdAt: "15/04/2025",
         medicines: [
-            { code: "TH001", name: "Paracetamol", registration: "VN123", quantity: 2, unit: "viên", usage: "1 viên sáng" },
+            {
+                code: "TH001",
+                name: "Paracetamol",
+                registration: "VN123",
+                quantity: 2,
+                unit: "viên",
+                usage: "1 viên sáng",
+            },
         ],
         invoice: {
             items: [
-                { name: "Paracetamol", unit: "viên", quantity: 2, price: 5000, total: 10000 },
+                {
+                    name: "Paracetamol",
+                    unit: "viên",
+                    quantity: 2,
+                    price: 5000,
+                    total: 10000,
+                },
             ],
             total: 10000,
         },
@@ -82,7 +94,10 @@ export default function PrescriptionList({ filters }) {
                             <PrescriptionRow
                                 data={p}
                                 index={index}
-                                onClick={() => setSelected(p)}
+                                isSelected={selected?.id === p.id}
+                                onClick={() =>
+                                    setSelected(selected?.id === p.id ? null : p)
+                                }
                             />
                         </Fragment>
                     ))}
