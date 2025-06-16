@@ -10,10 +10,34 @@ export default function PatientsPage() {
     });
     const [showModal, setShowModal] = useState(false);
 
-    const handleAdd = (data) => {
-        console.log("✅ New patient submitted:", data);
-        // Gửi dữ liệu lên backend sau này
+    const handleAdd = async (data) => {
+        try {
+            const response = await fetch("http://localhost:8000/api/benhnhan/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                alert("❌ Lỗi: " + error.detail);
+                return;
+            }
+
+            const newPatient = await response.json();
+            console.log("✅ Bệnh nhân mới:", newPatient);
+
+            setShowModal(false); // đóng modal
+
+            // TODO: reload danh sách, ví dụ gọi lại API hoặc set state
+        } catch (err) {
+            console.error("Lỗi gửi dữ liệu:", err);
+            alert("❌ Không thể kết nối tới máy chủ.");
+        }
     };
+    
 
     return (
         <div className="mt-20 px-6">

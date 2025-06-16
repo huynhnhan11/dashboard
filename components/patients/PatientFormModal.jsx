@@ -2,21 +2,20 @@ import { useState } from "react";
 
 export default function PatientFormModal({ isOpen, onClose, onSubmit }) {
     const [formData, setFormData] = useState({
-        id: "BN00000006",
-        name: "",
-        gender: "Nam",
-        age: "",
-        phone: "",
-        address: "",
-        occupation: "",
-        group: "Thứ tự chờ khám",
-        weight: "",
-        height: "",
-        pulse: "",
-        temperature: "",
-        bloodPressure: "",
-        medicalHistory: "",
-        createdAt: new Date().toISOString().slice(0, 10),
+        HoTen: "",
+        GioiTinh: "Nam",
+        NamSinh: "",
+        SoDienThoai: "",
+        DiaChi: "",
+        MaNgheNghiep: "",
+        Nhom: "Thứ tự chờ khám",
+        CanNang: "",
+        ChieuCao: "",
+        Mach: "",
+        NhietDo: "",
+        HuyetAp: "",
+        TienSu: "",
+        NgayTao: new Date().toISOString().slice(0, 10),
     });
 
     const handleChange = (e) => {
@@ -40,75 +39,95 @@ export default function PatientFormModal({ isOpen, onClose, onSubmit }) {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div className="col-span-1">
-                        <label className="block font-semibold mb-1">Mã bệnh nhân</label>
-                        <input value={formData.id} disabled className="w-full border px-2 py-1 rounded bg-gray-100" />
-                    </div>
-                    <div className="col-span-1">
                         <label className="block font-semibold mb-1">Tên bệnh nhân</label>
-                        <input name="name" value={formData.name} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <input name="HoTen" value={formData.HoTen} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
                     </div>
+
                     <div className="col-span-1">
-                        <label className="block font-semibold mb-1">Tuổi / năm sinh</label>
-                        <input name="age" value={formData.age} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <label className="block font-semibold mb-1">Năm sinh</label>
+                        <input name="NamSinh" value={formData.NamSinh} onChange={handleChange} type="number" className="w-full border px-2 py-1 rounded" />
                     </div>
+
                     <div className="col-span-1">
                         <label className="block font-semibold mb-1">Giới tính</label>
-                        <select name="gender" value={formData.gender} onChange={handleChange} className="w-full border px-2 py-1 rounded">
+                        <select name="GioiTinh" value={formData.GioiTinh} onChange={handleChange} className="w-full border px-2 py-1 rounded">
                             <option>Nam</option>
                             <option>Nữ</option>
                             <option>Khác</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label className="block font-semibold mb-1">Cân nặng</label>
-                        <input name="weight" value={formData.weight} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
-                    </div>
-                    <div>
-                        <label className="block font-semibold mb-1">Chiều cao</label>
-                        <input name="height" value={formData.height} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
-                    </div>
-
-                    <div>
-                        <label className="block font-semibold mb-1">Mạch</label>
-                        <input name="pulse" value={formData.pulse} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
-                    </div>
-                    <div>
-                        <label className="block font-semibold mb-1">Thân nhiệt</label>
-                        <input name="temperature" value={formData.temperature} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
-                    </div>
-
-                    <div>
-                        <label className="block font-semibold mb-1">Huyết áp</label>
-                        <input name="bloodPressure" value={formData.bloodPressure} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
-                    </div>
-                    <div>
+                    <div className="col-span-1">
                         <label className="block font-semibold mb-1">Điện thoại</label>
-                        <input name="phone" value={formData.phone} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <input name="SoDienThoai" value={formData.SoDienThoai} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
                     </div>
 
                     <div>
                         <label className="block font-semibold mb-1">Địa chỉ</label>
-                        <input name="address" value={formData.address} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <input name="DiaChi" value={formData.DiaChi} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
                     </div>
+
                     <div>
                         <label className="block font-semibold mb-1">Nghề nghiệp</label>
-                        <input name="occupation" value={formData.occupation} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <select
+                            name="MaNgheNghiep"
+                            value={formData.MaNgheNghiep}
+                            onChange={handleChange}
+                            className="w-full border px-2 py-1 rounded"
+                        >
+                            <option value="">-- Chọn nghề nghiệp --</option>
+                            <option value="1">Bác sĩ</option>
+                            <option value="2">Lập trình viên</option>
+                            <option value="3">Nông dân</option>
+                            {/* Hoặc fetch từ API nghề nghiệp */}
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label className="block font-semibold mb-1">Cân nặng</label>
+                        <input name="CanNang" value={formData.CanNang} onChange={handleChange} type="number" className="w-full border px-2 py-1 rounded" />
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Chiều cao</label>
+                        <input name="ChieuCao" value={formData.ChieuCao} onChange={handleChange} type="number" className="w-full border px-2 py-1 rounded" />
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Mạch</label>
+                        <input name="Mach" value={formData.Mach} onChange={handleChange} type="number" className="w-full border px-2 py-1 rounded" />
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Thân nhiệt</label>
+                        <input name="NhietDo" value={formData.NhietDo} onChange={handleChange} type="number" step="0.1" className="w-full border px-2 py-1 rounded" />
+                    </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Huyết áp</label>
+                        <input name="HuyetAp" value={formData.HuyetAp} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
                     </div>
 
                     <div>
                         <label className="block font-semibold mb-1">Tiền sử</label>
-                        <input name="medicalHistory" value={formData.medicalHistory} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <input name="TienSu" value={formData.TienSu} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
                     </div>
+
+                    <div>
+                        <label className="block font-semibold mb-1">Nhóm</label>
+                        <input name="Nhom" value={formData.Nhom} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                    </div>
+
                     <div>
                         <label className="block font-semibold mb-1">Ngày lập</label>
-                        <input name="createdAt" value={formData.createdAt} onChange={handleChange} className="w-full border px-2 py-1 rounded" />
+                        <input name="NgayTao" value={formData.NgayTao} onChange={handleChange} type="date" className="w-full border px-2 py-1 rounded" />
                     </div>
                 </div>
 
                 <div className="flex justify-end mt-6 gap-3">
-                    <button onClick={handleSubmit} className="bg-green-600 text-white px-4 py-2 rounded">Hoàn tất</button>
-                    <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">Bỏ qua</button>
+                    <button onClick={handleSubmit} className="bg-green-600 text-white px-4 py-2 rounded">Create</button>
+                    <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">Skip</button>
                 </div>
             </div>
         </div>

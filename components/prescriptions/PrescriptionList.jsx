@@ -1,71 +1,30 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
+import { fetchPrescriptions } from "../../src/api"; // Đường dẫn đúng với file api bạn đặt
 import PrescriptionTabs from "../tabDetail/PrescriptionTabs";
 import PrescriptionRow from "./PrescriptionRow";
 
-const parseDate = (str) => {
-    const [day, month, year] = str.split("/").map(Number);
-    return new Date(year, month - 1, day);
-};
-
-const prescriptions = [
-    {
-        id: 1,
-        code: "DT001",
-        name: "Nguyễn Văn A",
-        age: 32,
-        diagnosis: "Cảm cúm",
-        total: 120000,
-        createdBy: "BS. Minh",
-        createdAt: "15/04/2025",
-        medicines: [
-            {
-                code: "TH001",
-                name: "Paracetamol",
-                registration: "VN123",
-                quantity: 2,
-                unit: "viên",
-                usage: "1 viên sáng",
-            },
-        ],
-        invoice: {
-            items: [
-                {
-                    name: "Paracetamol",
-                    unit: "viên",
-                    quantity: 2,
-                    price: 5000,
-                    total: 10000,
-                },
-            ],
-            total: 10000,
-        },
-    },
-    {
-        id: 2,
-        code: "DT002",
-        name: "Trần Thị B",
-        age: 45,
-        diagnosis: "Viêm họng",
-        total: 180000,
-        createdBy: "BS. Hạnh",
-        createdAt: "16/04/2025",
-        medicines: [],
-        invoice: null,
-    },
-];
-
 export default function PrescriptionList({ filters }) {
-    const [selected, setSelected] = useState(null);
+    const [phieuKhams, setPhieuKhams] = useState([]);
+    const [phieuChon, setPhieuChon] = useState(null);
     const { keyword = "", fromDate = null, toDate = null } = filters || {};
 
-    const filtered = prescriptions.filter((p) => {
+    useEffect(() => {
+        fetchPrescriptions().then(data => {
+            console.log("✅ Dữ liệu phiếu khám:", data);
+            setPhieuKhams(data);
+        });
+    }, []);
+
+    const parseDate = (iso) => new Date(iso);
+
+    const filtered = phieuKhams.filter((p) => {
         const kw = keyword.toLowerCase();
         const matchKeyword =
-            p.name.toLowerCase().includes(kw) ||
-            p.code.toLowerCase().includes(kw) ||
-            p.diagnosis.toLowerCase().includes(kw);
+            p.ChanDoan?.toLowerCase().includes(kw) ||
+            p.NguoiLap?.toLowerCase().includes(kw) ||
+            String(p.MaPhieuKham).includes(kw);
 
-        const createdAtDate = parseDate(p.createdAt);
+        const createdAtDate = parseDate(p.NgayLap);
         const matchFrom = !fromDate || createdAtDate >= new Date(fromDate);
         const matchTo = !toDate || createdAtDate <= new Date(toDate);
 
@@ -78,11 +37,9 @@ export default function PrescriptionList({ filters }) {
                 <thead className="bg-emerald-100 text-gray-700 text-center">
                     <tr>
                         <th className="py-2 px-2 border">#</th>
-                        <th className="py-2 px-2 border">Mã đơn</th>
-                        <th className="py-2 px-2 border">Tên bệnh nhân</th>
-                        <th className="py-2 px-2 border">Tuổi</th>
+                        <th className="py-2 px-2 border">Mã phiếu</th>
+                        <th className="py-2 px-2 border">Bệnh nhân</th>
                         <th className="py-2 px-2 border">Chẩn đoán</th>
-                        <th className="py-2 px-2 border">Tổng tiền thuốc</th>
                         <th className="py-2 px-2 border">Người lập</th>
                         <th className="py-2 px-2 border">Ngày lập</th>
                         <th className="py-2 px-2 border">Chức năng</th>
@@ -90,13 +47,13 @@ export default function PrescriptionList({ filters }) {
                 </thead>
                 <tbody>
                     {filtered.map((p, index) => (
-                        <Fragment key={p.id}>
+                        <Fragment key={p.MaPhieuKham}>
                             <PrescriptionRow
-                                data={p}
+                                data={p} // truyền nguyên dữ liệu gốc từ DB
                                 index={index}
-                                isSelected={selected?.id === p.id}
+                                isSelected={phieuChon?.MaPhieuKham === p.MaPhieuKham}
                                 onClick={() =>
-                                    setSelected(selected?.id === p.id ? null : p)
+                                    setPhieuChon(phieuChon?.MaPhieuKham === p.MaPhieuKham ? null : p)
                                 }
                             />
                         </Fragment>
@@ -104,12 +61,12 @@ export default function PrescriptionList({ filters }) {
                 </tbody>
             </table>
 
-            {selected && (
+            {phieuChon && (
                 <div className="mt-6">
                     <PrescriptionTabs
-                        prescription={selected}
-                        patient={{ name: selected.name, age: selected.age }}
-                        invoice={selected.invoice}
+                        prescription={phieuChon}
+                        patient={{ name: `Bệnh nhân #${phieuChon.MaBenhNhan}` }}
+                        invoice={null}
                     />
                 </div>
             )}

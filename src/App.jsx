@@ -23,7 +23,8 @@ function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/stock" element={<Stock />} />
           <Route path="/prescriptions/new/:patientId" element={<PrescriptionForm />} /> {/* 👈 Thêm route này */}
-          
+          <Route path="/prescriptions/create" element={<PrescriptionForm />} />
+          <Route path="/prescriptions/create/:MaBenhNhan" element={<PrescriptionForm />} />
         </Routes>
       </Router>
     </div>
